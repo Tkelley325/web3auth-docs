@@ -1,0 +1,136 @@
+import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs";
+
+<Tabs
+  defaultValue="table"
+  values={[
+    { label: "Table", value: "table" },
+    { label: "Interface", value: "interface" },
+  ]}
+>
+
+<TabItem value="table">
+
+`modalConfig: { ADAPTER : { params } }`
+
+| Parameter        | Type      | Description                                   | Default                                     | Mandatory |
+| ---------------- | --------- | --------------------------------------------- | ------------------------------------------- | --------- |
+| `label`          | `string`  | Label of the adapter you want to configure    | NA - _identifier for corresponding adapter_ | Yes       |
+| `showOnModal?`   | `boolean` | Whether to show an adapter in modal or not.   | true                                        | No        |
+| `showOnDesktop?` | `boolean` | Whether to show an adapter in desktop or not. | true                                        | No        |
+| `showOnMobile?`  | `boolean` | Whether to show an adapter in mobile or not.  | true                                        | No        |
+
+Additionally, to configure the Openlogin Adapter's each login method, we have the `loginMethods?` parameter.
+
+| Parameter       | Type                | Description                                                                    | Default                                     | Mandatory |
+| --------------- | ------------------- | ------------------------------------------------------------------------------ | ------------------------------------------- | --------- |
+| `loginMethods?` | `LoginMethodConfig` | To configure visibility of each social login method for the openlogin adapter. | Default `LoginMethod` for each social login | No        |
+
+</TabItem>
+
+<TabItem value="interface">
+
+```tsx
+initModal(params?: {
+    modalConfig?: Record<WALLET_ADAPTER_TYPE, ModalConfig>;
+}): Promise<void>;
+
+interface ModalConfig extends BaseAdapterConfig {
+    loginMethods?: LoginMethodConfig;
+}
+
+interface BaseAdapterConfig {
+    label: string;
+    showOnModal?: boolean;
+    showOnMobile?: boolean;
+    showOnDesktop?: boolean;
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+`loginMethods: { label: { params } }`
+
+In `loginMethods`, you can configure the visibility of each social login method for the openlogin adapter. The social login is corresponded by the
+`label` parameter. Below is the table indicating the different `params` available for customization.
+
+For `labels` you can choose between these options: `google`, `facebook`, `twitter`, `reddit`, `discord`, `twitch`, `apple`, `line`, `github`, `kakao`,
+`linkedin`, `weibo`, `wechat`, `email_passwordless`
+
+<Tabs
+  defaultValue="table"
+  values={[
+    { label: "Table", value: "table" },
+    { label: "Type Declaration", value: "type" },
+  ]}
+>
+
+<TabItem value="table">
+
+`params`
+
+| Parameter        | Type      | Description                                                                                | Default                                                           | Mandatory |
+| ---------------- | --------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- | --------- |
+| `name`           | `string`  | Display Name                                                                               | Default for Openlogin App                                         | No        |
+| `description?`   | `string`  | Description for button. If provided, it renders as a full length button. else, icon button | Just an icon rendered                                             | No        |
+| `logoHover?`     | `string`  | Logo to be shown on mouse hover                                                            | [web3auth-logo.svg](https://images.web3auth.io/web3auth-logo.svg) | No        |
+| `logoLight?`     | `string`  | Logo to be shown on dark background (dark theme)                                           | [web3auth-logo.svg](https://images.web3auth.io/web3auth-logo.svg) | No        |
+| `logoDark?`      | `string`  | Logo to be shown on light background (light theme)                                         | [web3auth-logo.svg](https://images.web3auth.io/web3auth-logo.svg) | No        |
+| `mainOption?`    | `boolean` | Show login button on the main list                                                         | Default for Openlogin App                                         | No        |
+| `showOnModal?`   | `string`  | Whether to show the login button on modal or not                                           | Default for Openlogin App                                         | No        |
+| `showOnDesktop?` | `string`  | Whether to show the login button on desktop                                                | Default for Openlogin App                                         | No        |
+| `showOnMobile?`  | `string`  | Whether to show the login button on mobile                                                 | Default for Openlogin App                                         | No        |
+
+</TabItem>
+
+<TabItem value="type">
+
+```tsx
+declare type LoginMethodConfig = Record<
+  string,
+  {
+    /**
+     * Display Name. If not provided, we use the default for openlogin app
+     */
+    name: string;
+    /**
+     * Description for button. If provided, it renders as a full length button. else, icon button
+     */
+    description?: string;
+    /**
+     * Logo to be shown on mouse hover. If not provided, we use the default for openlogin app
+     */
+    logoHover?: string;
+    /**
+     * Logo to be shown on dark background (dark theme). If not provided, we use the default for openlogin app
+     */
+    logoLight?: string;
+    /**
+     * Logo to be shown on light background (light theme). If not provided, we use the default for openlogin app
+     */
+    logoDark?: string;
+    /**
+     * Show login button on the main list
+     */
+    mainOption?: boolean;
+    /**
+     * Whether to show the login button on modal or not
+     */
+    showOnModal?: boolean;
+    /**
+     * Whether to show the login button on desktop
+     */
+    showOnDesktop?: boolean;
+    /**
+     * Whether to show the login button on mobile
+     */
+    showOnMobile?: boolean;
+  }
+>;
+```
+
+</TabItem>
+
+</Tabs>

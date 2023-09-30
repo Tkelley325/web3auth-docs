@@ -5,7 +5,9 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["docusaurus.config.js"],
   "rules": {
+    "@typescript-eslint/ban-ts-comment": 0,
     "react/jsx-props-no-spreading": 0,
     "import/no-unresolved": [2, { "ignore": ["^@theme", "^@docusaurus", "^@site"] }]
   },
@@ -13,7 +15,8 @@
     "mdx/code-blocks": false
   },
   "globals": {
-    "JSX": true
+    "JSX": true,
+    "history": "readonly"
   },
   "overrides": [
     {
@@ -31,7 +34,8 @@
         "@typescript-eslint/no-throw-literal": 0,
         "@typescript-eslint/no-implied-eval": 0,
         "@typescript-eslint/dot-notation": 0,
-        "@typescript-eslint/naming-convention": 0
+        "@typescript-eslint/naming-convention": 0,
+        "no-plusplus": 0
       }
     }
   ]

@@ -1,0 +1,92 @@
+---
+title: Creating Verifiers to use Custom Authentication
+sidebar_label: Create Verifiers
+displayed_sidebar: docs
+description: "Creating Verifiers to use Custom Authentication | Documentation - Web3Auth"
+image: "images/docs-meta-cards/documentation-card.png"
+---
+
+#### What is a Verifier?
+
+A verifier is a piece of information about the OAuth provider being used by the application, which is queried by web3auth auth network nodes from a
+smart contract deployed on the Ethereum blockchain to verify the JWT token.
+
+There are two types of `Verifiers` at Web3Auth:
+
+1. `Default Verifiers`: These are the verifiers associated with OAuth providers(Google, Facebook, Apple etc.) which are owned and managed by
+   Web3Auth's account.
+2. `Custom Verifiers`: If you want to manage your OAuth providers(Google, Facebook, Apple etc.) yourself or to use some Federated Identity Providers
+   like Auth0, Firebase, AWS Cognito, Okta etc., or even your Custom JWT Authentication, you'll need to create a verifier under a project on the
+   Web3Auth's dashboard.
+
+For users to be able to log in using your custom authentication flow, you will need to use a Custom Verifier. The Wallet that is generated for each
+user is specific to a verifier. Verifier scripts determine the access structure to your users' wallets, and the set of Verifier scripts you choose
+will determine which logins your application will ultimately use.
+
+You can read more about verifiers [in this blog post](https://medium.com/toruslabs/key-assignments-resolution-and-retrieval-afb984500612) or
+[in this GitHub discussion](https://github.com/orgs/Web3Auth/discussions/427#discussioncomment-3442052).
+
+The `Custom Authentication` tab of a project looks something like this:
+
+![Custom Authentication Dashboard](/images/dashboard/custom-authentication.png)
+
+<br />
+
+## Create Verifier
+
+Once you click on the `Create Verifier` button, you'll see a toggle similar to this:
+
+![Verifier Modal on Web3Auth Dashboard](/images/dashboard/create-verifier.png)
+
+To create a verifier, you need to input the following details:
+
+### Verifier identifier
+
+The identifier for your verifier. You'll need this while initializing the `Web3Auth`/`Web3AuthNoModal` SDK for setting up the custom authentication.
+
+### Choose a Login Provider
+
+Select the Login Provider from the provided options.
+
+The following is the list we have on our Dashboard:
+
+1. Social Login Providers
+   - [Google](/auth-provider-setup/social-providers/google)
+   - [Facebook](/auth-provider-setup/social-providers/facebook)
+   - [Twitch](/auth-provider-setup/social-providers/twitch)
+   - [Discord](/auth-provider-setup/social-providers/discord)
+2. Custom Providers
+   - [Auth0](/auth-provider-setup/federated-identity-providers#auth0)
+   - [Custom JWT](/auth-provider-setup/byo-jwt-providers)
+3. Aggregate Multiple Providers
+   - [Aggregate Verifier](/auth-provider-setup/aggregate-verifier)
+
+If something you're looking for is not available in the list, choose `Custom Provider` and provide the JWT details.
+
+### Can XXXX authenticator/login be supported?
+
+The list above is only comprehensive to some of the logins our system can support. If you'd like support for a particular login system, send your
+query to hello@web3auth.io.
+
+## Edit Verifier
+
+If you have created a verifier under your project, you'll see it under the custom authentication tab.
+
+Click on the three dots next to the verifier you wish to edit and click on `Update Verifier` in the dropdown.
+
+![Verifier Options](/images/dashboard/edit-verifier.png)
+
+The `Edit Verifier` modal will appear. Make the necessary changes and click on save at the bottom right.
+
+## Aggregate Verifiers
+
+Developers can create `Aggregate Verifiers` from the Web3Auth Dashboard. Combining multiple login methods to create a verifier to get the same address
+for your user regardless of their login providers is possible while creating a verifier, for example, combining a `Google` and `Email Passwordless`
+login or `Google` and `GitHub` via Auth0 to access the same key for your user. These login methods should share the same Verifier ID, e.g., `email`;
+Such verifiers are called `Single ID Verifiers`.
+
+:::info Aggregate Verifier Set up
+
+Check out [**Aggregate Verifier page**](/auth-provider-setup/aggregate-verifier) to set up your verifier.
+
+:::

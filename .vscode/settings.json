@@ -22,6 +22,7 @@
     "palenight",
     "passwordless",
     "solana",
+    "tkey",
     "Torus's",
     "toruslabs",
     "torusresearch",
@@ -33,5 +34,14 @@
   "eslint.options": {
     "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
   },
-  "eslint.validate": ["markdown", "mdx", "javascript", "javascriptreact", "typescript", "typescriptreact"]
+  "eslint.validate": ["markdown", "mdx", "javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "DotJoshJohnson.xml"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

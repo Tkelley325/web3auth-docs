@@ -1,0 +1,100 @@
+---
+title: Multi Factor Authentication with PnP Web No Modal SDK
+sidebar_label: Multi Factor Authentication
+displayed_sidebar: sdk
+description: "Web3Auth PnP Web No Modal SDK - Multi Factor Authentication | Documentation - Web3Auth"
+---
+
+import OpenloginAdapterSettings from "@site/src/common/sdk/pnp/web/_openlogin-adapter-settings.mdx";
+import OpenloginLoginSettings from "@site/src/common/sdk/pnp/web/_openlogin-login-settings.mdx";
+
+At Web3Auth, we prioritize your security by offering Multi-Factor Authentication (MFA). MFA is an extra layer of protection that verifies your
+identity when accessing your account. To ensure ownership, you must provide two or more different backup factors. You have the option to choose from
+the device, social, backup factor (seed phrase), and password factors to guarantee access to your Web3 account. Once you create a recovery factor, MFA
+is enabled, and your keys are divided into three shares for off-chain multi-sig, making the key self-custodial. With backup factors, you can easily
+recover your account if you lose access to your original device or helps login into a new device.
+
+For a dApp, we provide various options to set up Multi-Factor Authentication. You can customize the MFA screen by setting the `mfaLevel` argument. You
+can enable or disable a backup factor and change their order. Currently, there are four values for `mfaLevel`:
+
+- `default`: presents the MFA screen every third login
+- `optional`: presents the MFA screen on every login, but you can skip it
+- `mandatory`: make it mandatory to set up MFA after login
+- `none`: skips the MFA setup screen
+
+## Installing Openlogin Adapter
+
+Social logins in Web3Auth are enabled by the [`openlogin-adapter`](/sdk/pnp/web/adapters/openlogin). Natively, it is already present and preconfigured
+within the Plug and Play SDK, but for custom configurations, you need to install the adapter package.
+
+```bash npm2yarn
+npm install --save @web3auth/openlogin-adapter
+```
+
+## Configuring Openlogin Adapter
+
+While instantiating the Openlogin Adapter, you can pass some configuration objects to the constructor. One of these configurations is the
+`loginSettings` configuration which enables you to make changes in the adapter, enabling add more settings to your login function using web3auth.
+
+:::tip
+
+Checkout the [`openlogin-adapter`](/sdk/pnp/web/adapters/openlogin) SDK Reference for more details on different configurations you can pass for
+customisations.
+
+:::
+
+### Login Settings
+
+#### `loginSettings`
+
+<OpenloginLoginSettings />
+
+```tsx title="Usage"
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+
+const openloginAdapter = new OpenloginAdapter({
+  loginSettings: {
+    mfaLevel: "mandatory", // default, optional, mandatory, none
+  },
+});
+```
+
+### Adapter Settings
+
+#### `adapterSettings`
+
+<OpenloginAdapterSettings />
+
+```tsx title="Usage"
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+
+const openloginAdapter = new OpenloginAdapter({
+  loginSettings: {
+    mfaLevel: "mandatory", // default, optional, mandatory, none
+  },
+  adapterSettings: {
+    mfaSettings: {
+      deviceShareFactor: {
+        enable: true,
+        priority: 1,
+        mandatory: true,
+      },
+      backUpShareFactor: {
+        enable: true,
+        priority: 2,
+        mandatory: false,
+      },
+      socialBackupFactor: {
+        enable: true,
+        priority: 3,
+        mandatory: false,
+      },
+      passwordFactor: {
+        enable: true,
+        priority: 4,
+        mandatory: false,
+      },
+    },
+  },
+});
+```

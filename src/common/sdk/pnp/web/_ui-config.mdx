@@ -1,0 +1,63 @@
+import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs";
+
+<Tabs
+  defaultValue="table"
+  values={[
+    { label: "Table", value: "table" },
+    { label: "Interface", value: "interface" },
+  ]}
+>
+
+<TabItem value="table">
+
+| Parameter               | Type                                                      | Description                                                                                                                                      | Mandatory | Default                                                                                                                                                     |
+| ----------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `loginMethodsOrder?`    | `string[]`                                                | The list of login methods can be reordered with this parameter. Those methods specified will be first on the list.                               | No        | `["google", "facebook", "twitter", "reddit", "discord", "twitch", "apple", "line", "github", "kakao", "linkedin", "weibo", "wechat", "email_passwordless"]` |
+| `modalZIndex?`          | `string`                                                  | Z-index of the modal and iframe                                                                                                                  | No        | `"99998"`                                                                                                                                                   |
+| `displayErrorsOnModal?` | `boolean`                                                 | Whether to show errors on Web3Auth modal.                                                                                                        | No        | `true`                                                                                                                                                      |
+| `loginGridCol?`         | `2` or `3`                                                | Number of columns to display the Social Login buttons.                                                                                           | No        | `3`                                                                                                                                                         |
+| `primaryButton?`        | `enum` - (`externalLogin`, `socialLogin` or `emailLogin`) | Decides which button will be displayed as primary button in modal. Only one button will be primary and other buttons in modal will be secondary. | No        | `socialLogin`                                                                                                                                               |
+
+</TabItem>
+
+<TabItem value="interface">
+
+```tsx
+interface UIConfig extends WhiteLabelData {
+  /**
+   * order of how login methods are shown
+   *
+   * @defaultValue `["google", "facebook", "twitter", "reddit", "discord", "twitch", "apple", "line", "github", "kakao", "linkedin", "weibo", "wechat", "email_passwordless"]`
+   */
+  loginMethodsOrder?: string[];
+  /**
+   * Z-index of the modal and iframe
+   * @defaultValue 99998
+   */
+  modalZIndex?: string;
+  /**
+   * Whether to show errors on Web3Auth modal.
+   *
+   * @defaultValue `true`
+   */
+  displayErrorsOnModal?: boolean;
+  /**
+   * number of columns to display the Social Login buttons
+   *
+   * @defaultValue `3`
+   */
+  loginGridCol?: 2 | 3;
+  /**
+   * decides which button will be displayed as primary button in modal
+   * only one button will be primary and other buttons in modal will be secondary
+   *
+   * @defaultValue `socialLogin`
+   */
+  primaryButton?: "externalLogin" | "socialLogin" | "emailLogin";
+}
+```
+
+</TabItem>
+
+</Tabs>

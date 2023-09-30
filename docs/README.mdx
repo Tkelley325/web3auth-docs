@@ -1,43 +1,23 @@
 ---
-title: Home
+title: Introduction
 slug: /
 hide_table_of_contents: true
 hide_title: true
+displayed_sidebar: docs
+image: "images/docs-meta-cards/documentation-card.png"
+description: "Introduction | Documentation - Web3Auth"
 ---
 
-import QuickStartOverview from "@theme/QuickStartOverview";
-import UsecaseCards from "@theme/UsecaseCards";
-import QuickNavigation from "@theme/QuickNavigation";
+import HelpCards from "@site/src/components/HelpCards";
+import HomeQuickStartBanner from "@site/src/components/HomeQuickStartBanner";
+import IntegrationBuilderBanner from "@site/src/components/IntegrationBuilderBanner";
+import ResourcesCards from "@site/src/components/ResourcesCards";
+import SDKReferenceCards from "@site/src/components/SDKReferenceCards";
+import SEO from "@site/src/components/SEO";
 
-<QuickStartOverview />
-
-<br />
-
-# Explore our documentation
-
----
-
-<QuickNavigation />
-
-<br />
-
-# See how others use us
-
----
-
-Want to experience how our production applications use us? Here are a few links to some of our interesting customer implemetations to help you
-experience the real world applications of Web3Auth.
-
-Most users do not want to be bothered with private keys and mnemonics. Web3Auth abstracts all these complexity behind a smooth Web 2.0 experience,
-allowing users to dive straight into the action.
-
-<UsecaseCards />
-
----
-
-:::tip Want to get technical?
-
-See our [High-level Overview](https://medium.com/toruslabs/what-distributed-key-generation-is-866adc79620) and
-[Technical Write-up](overview/key-management-and-security).
-
-:::
+<SEO />
+<HomeQuickStartBanner />
+<SDKReferenceCards />
+<ResourcesCards />
+<IntegrationBuilderBanner />
+<HelpCards />

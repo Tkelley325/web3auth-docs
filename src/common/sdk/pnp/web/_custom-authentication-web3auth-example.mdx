@@ -1,0 +1,122 @@
+import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs";
+
+<Tabs
+  defaultValue="google"
+  values={[
+    { label: "Google", value: "google" },
+    { label: "Facebook", value: "facebook" },
+    {label:"Discord", value:"discord"},
+    {label:"Twitch", value:"twitch"},
+  ]}
+>
+
+<TabItem value="google">
+
+```tsx
+import OpenloginAdapter from "@web3auth/openlogin-adapter";
+
+const openloginAdapter = new OpenloginAdapter({
+  adapterSettings: {
+    clientId, //Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+    uxMode: "popup",
+    // highlight-start
+    loginConfig: {
+      // Google login
+      google: {
+        verifier: "YOUR_GOOGLE_VERIFIER_NAME", // Please create a verifier on the developer dashboard and pass the name here
+        typeOfLogin: "google", // Pass on the login provider of the verifier you've created
+        clientId: "GOOGLE_CLIENT_ID.apps.googleusercontent.com", // Pass on the clientId of the login provider here - Please note this differs from the Web3Auth ClientID. This is the JWT Client ID
+      },
+    },
+    // highlight-end
+  },
+  privateKeyProvider,
+});
+web3auth.configureAdapter(openloginAdapter);
+```
+
+</TabItem>
+
+<TabItem value="facebook">
+
+```tsx
+import OpenloginAdapter from "@web3auth/openlogin-adapter";
+
+const openloginAdapter = new OpenloginAdapter({
+  adapterSettings: {
+    clientId, //Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+    uxMode: "popup",
+    // highlight-start
+    loginConfig: {
+      // Facebook login
+      facebook: {
+        verifier: "YOUR_FACEBOOK_VERIFIER_NAME", // Please create a verifier on the developer dashboard and pass the name here
+        typeOfLogin: "facebook", // Pass on the login provider of the verifier you've created
+        clientId: "FACEBOOK_CLIENT_ID_1234567890", // Pass on the clientId of the login provider here - Please note this differs from the Web3Auth ClientID. This is the JWT Client ID
+      },
+    },
+    // highlight-end
+  },
+  privateKeyProvider,
+});
+web3auth.configureAdapter(openloginAdapter);
+```
+
+</TabItem>
+
+<TabItem value="discord">
+
+```tsx
+import OpenloginAdapter from "@web3auth/openlogin-adapter";
+
+const openloginAdapter = new OpenloginAdapter({
+  adapterSettings: {
+    clientId, //Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+    uxMode: "popup",
+    // highlight-start
+    loginConfig: {
+      // Discord login
+      discord: {
+        verifier: "YOUR_DISCORD_VERIFIER_NAME", // Please create a verifier on the developer dashboard and pass the name here
+        typeOfLogin: "discord", // Pass on the login provider of the verifier you've created
+        clientId: "DISCORD_CLIENT_ID_1234567890", //use your app client id you got from discord
+      },
+    },
+    // highlight-end
+  },
+  privateKeyProvider,
+});
+web3auth.configureAdapter(openloginAdapter);
+```
+
+</TabItem>
+
+<TabItem value="twitch">
+
+```tsx
+import OpenloginAdapter from "@web3auth/openlogin-adapter";
+
+const openloginAdapter = new OpenloginAdapter({
+  adapterSettings: {
+    clientId, //Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+    uxMode: "popup",
+    // highlight-start
+    loginConfig: {
+      // Facebook login
+      facebook: {
+        verifier: "YOUR_TWITCH_VERIFIER_NAME", // Please create a verifier on the developer dashboard and pass the name here
+        typeOfLogin: "twitch", // Pass on the login provider of the verifier you've created
+        clientId: "TWITCH_CLIENT_ID_1234567890", //use your app client id you got from twitch
+      },
+    },
+    // highlight-end
+  },
+  privateKeyProvider,
+});
+web3auth.configureAdapter(openloginAdapter);
+```
+
+</TabItem>
+
+</Tabs>

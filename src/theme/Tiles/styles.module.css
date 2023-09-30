@@ -12,10 +12,10 @@
 }
 
 .tile {
+  border: 1px solid var(--w3a-border-color);
   display: flex;
-  box-shadow: 0px 2px 2px rgba(92, 108, 127, 0.1);
-  border: 0.5px solid rgb(228, 223, 223);
-  border-radius: 12px;
+  background: var(--ifm-background-surface-color);
+  border-radius: 8px;
   box-sizing: border-box;
   padding: 15px;
   margin-bottom: 2%;
@@ -23,9 +23,8 @@
 }
 
 .tile:hover {
-  color: black;
   text-decoration: none;
-  box-shadow: 5px 5px 5px rgb(0 0 0 / 25%);
+  border: 1px solid var(--ifm-color-primary);
 }
 
 .tileIcon {
@@ -34,11 +33,11 @@
 }
 
 .tileText {
-  color: black;
+  color: var(--ifm-color-content);
   font-weight: 500;
 }
 
-@media (max-width: 1156px) {
+@media (max-width: 996px) {
   .tile {
     flex-basis: 49%;
   }

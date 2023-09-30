@@ -1,0 +1,27 @@
+```javascript
+import OpenloginAdapter from "@web3auth/openlogin-adapter";
+
+const openloginAdapter = new OpenloginAdapter({
+  adapterSettings: {
+    clientId, //Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+    network: "sapphire_mainnet", // Optional - Provide only if you haven't provided it in the Web3Auth Instantiation Code
+    uxMode: "popup",
+    // highlight-start
+    whiteLabel: {
+      appName: "W3A Heroes",
+      appUrl: "https://web3auth.io",
+      logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
+      logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
+      defaultLanguage: "en", // en, de, ja, ko, zh, es, fr, pt, nl
+      mode: "dark", // whether to enable dark mode. defaultValue: auto
+      theme: {
+        primary: "#00D1B2",
+      },
+      useLogoLoader: true,
+    },
+    // highlight-end
+  },
+  privateKeyProvider,
+});
+web3auth.configureAdapter(openloginAdapter);
+```

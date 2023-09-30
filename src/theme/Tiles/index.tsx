@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 import styles from "./styles.module.css";
 
@@ -26,7 +28,7 @@ export default function Tiles(props: { tileGroups: TileGroup[] }) {
           <div className={styles.tileGroupContent}>
             {group.tiles.map((tile: Tile) => (
               <Link key={tile.key} className={styles.tile} to={tile.path}>
-                <img className={styles.tileIcon} src={`/contents/${tile.icon}`} alt={tile.icon} />
+                {tile.icon ? <img className={styles.tileIcon} src={useBaseUrl(`/content-hub/${tile.icon}`)} alt={tile.icon} /> : <div />}
                 <div className={styles.tileText}>{tile.title}</div>
               </Link>
             ))}
