@@ -1,59 +1,31 @@
 ---
 title: Integrate Web3Auth with the XRPL Blockchain
 sidebar_label: XRPL
-image: "content-hub/guides/banners/xrpl.png"
-displayed_sidebar: docs
+image: "banners/xrpl.png"
+
 keywords: [xrpl, web3auth, authentication, blockchain]
 description: "Integrate Web3Auth with the XRPL Blockchain | Documentation - Web3Auth"
 ---
 
 import GetUserInfoSnippet from "@site/src/common/docs/_get-userinfo.mdx";
+import XRPLProviderSetup from "@site/src/common/docs/_xrpl-provider-setup.mdx";
 
-The Web3Auth Web SDK offers a standard provider for accessing the user's private key on non-EVM chains like [XRPL](https://xrpl.org/). To enable a
-wider range of blockchain actions, you can use the `XrplPrivateKeyProvider` from `@web3auth/xrpl-provider`. This will provide an xrplProvider that can
-be injected back into the Openlogin adapter, allowing you to perform actions such as retrieving account information, obtaining balances, signing and
-sending transactions, and reading from and writing to smart contracts. Here are some methods to help you quickly get started.
+The Web3Auth Web SDK offers a standard provider for accessing the user's private key on non-EVM
+chains like [XRPL](https://xrpl.org/). You can use our native `@web3auth/xrpl-provider` for making
+direct connections with XRPL Blockchain. This will provide an xrplProvider that can be injected back
+into the Web3Auth instance, allowing you to perform actions such as retrieving account information,
+obtaining balances, signing and sending transactions, and reading from and writing to smart
+contracts. Here are some methods to help you quickly get started.
 
 ## Installation
 
+To interact with the XRPL blockchain, you can use the `@web3auth/xrpl-provider` package.
+
 ```bash npm2yarn
-npm install --save xrpl @web3auth/xrpl-provider @web3auth/modal @web3auth/openlogin-adapter @web3auth/base
+npm install --save @web3auth/xrpl-provider
 ```
 
-## Initializing Provider
-
-```tsx
-import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES } from "@web3auth/base";
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import { XrplPrivateKeyProvider, getXRPLChainConfig } from "@web3auth/xrpl-provider";
-import { convertStringToHex, Payment, xrpToDrops } from "xrpl";
-
-const web3auth = new Web3Auth({
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.OTHER,
-  },
-  clientId = "YOUR_WEB3AUTH_CLIENT_ID", // get from https://dashboard.web3auth.io
-  web3AuthNetwork = "sapphire_mainnet", // testnet, mainnet, cyan, aqua
-});
-
-const xrplProvider = new XrplPrivateKeyProvider({
-  config: {
-    chainId: "chainId",
-    chainConfig: getXRPLChainConfig("testnet"), // devnet, testnet, mainnet
-    rpcTarget: "rpc url", // devnet, testnet, mainnet
-  },
-});
-
-const adapter = new OpenloginAdapter({
-  privateKeyProvider: xrplProvider, // <-- Injecting the XRPL provider
-});
-web3AuthInstance.configureAdapter(adapter);
-
-await web3auth.initModal();
-
-const provider = await web3auth.connect(); // web3auth.provider
-```
+<XRPLProviderSetup />
 
 ## Get User Info
 

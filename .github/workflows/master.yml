@@ -8,13 +8,14 @@ on:
 env:
   REACT_CONTENTFUL_SPACE: ${{ secrets.REACT_CONTENTFUL_SPACE }}
   REACT_CONTENTFUL_TOKEN: ${{ secrets.REACT_CONTENTFUL_TOKEN }}
+  IB_ENV: production
 
 jobs:
   build-deploy:
     name: Build and Deploy
     strategy:
       matrix:
-        node: ["16.x"]
+        node: ["18.x"]
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}

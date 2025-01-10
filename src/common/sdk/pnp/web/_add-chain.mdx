@@ -1,10 +1,10 @@
 import TabItem from "@theme/TabItem";
 import Tabs from "@theme/Tabs";
 
-### `addChain()`
+#### `addChain()`
 
-To add a chain config to a connected adapter, you need to call `addChain()` function. This function helps you add the chain config by taking the
-following parameter:
+To add a chain config to a connected adapter, you need to call `addChain()` function. This function
+helps you add the chain config by taking the following parameter:
 
 <Tabs
   defaultValue="table"
@@ -16,9 +16,9 @@ following parameter:
 
 <TabItem value="table">
 
-| Variable      | Type                | Description         | Mandatory |
-| ------------- | ------------------- | ------------------- | --------- |
-| `chainConfig` | `CustomChainConfig` | Custom Chain Config | Yes       |
+| Variable      | Description                                        |
+| ------------- | -------------------------------------------------- |
+| `chainConfig` | `CustomChainConfig` for the chain you want to add. |
 
 </TabItem>
 
@@ -47,7 +47,7 @@ export type CustomChainConfig = {
   /**
    * Url of the block explorer
    */
-  blockExplorer: string;
+  blockExplorerUrl: string;
   /**
    * Default currency ticker of the network (e.g: ETH)
    */
@@ -60,6 +60,14 @@ export type CustomChainConfig = {
    * Number of decimals for the currency ticker (e.g: 18)
    */
   decimals?: number;
+   /**
+   * Logo for the chain
+   */
+  logo: string;
+  /**
+   * Whether the network is testnet or not
+   */
+  isTestnet?: boolean;
 };
 ```
 
@@ -69,13 +77,15 @@ export type CustomChainConfig = {
 
 ```javascript
 await web3auth.addChain({
-  chainId: "0x5",
-  displayName: "Goerli",
+  chainId: "0xaa36a7",
+  displayName: "Ethereum Sepolia",
   chainNamespace: CHAIN_NAMESPACES.EIP155,
-  tickerName: "Goerli",
+  tickerName: "Sepolia",
   ticker: "ETH",
   decimals: 18,
-  rpcTarget: "https://rpc.ankr.com/eth_goerli",
-  blockExplorer: "https://goerli.etherscan.io",
+  rpcTarget: "https://rpc.ankr.com/eth_sepolia",
+  blockExplorerUrl: "https://sepolia.etherscan.io",
+  logo: "https://images.toruswallet.io/eth.svg",
+  isTestnet: true,
 });
 ```
