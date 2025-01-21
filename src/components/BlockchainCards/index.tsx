@@ -1,4 +1,3 @@
-
 import styles from "./styles.module.css";
 
 import Tiles from "@theme/Tiles";
@@ -12,7 +11,7 @@ export const tileGroupsData = [
         key: "ethereum",
         title: "Ethereum",
         icon: "logo-ethereum.png",
-        path: "./connect-blockchain/ethereum",
+        path: "./connect-blockchain/evm/ethereum",
       },
       {
         key: "solana",
@@ -44,7 +43,12 @@ export const tileGroupsData = [
         icon: "logo-binance.png",
         path: "./connect-blockchain/bnb",
       },
-
+      {
+        key: "bitkub",
+        title: "BitKub",
+        icon: "logo-bitkub.png",
+        path: "./connect-blockchain/bitkub",
+      },
       {
         key: "avalanche",
         title: "Avalanche",
@@ -125,6 +129,12 @@ export const tileGroupsData = [
         path: "./connect-blockchain/polkadot",
       },
       {
+        key: "polymesh",
+        title: "Polymesh",
+        icon: "logo-polymesh.png",
+        path: "./connect-blockchain/polymesh",
+      },
+      {
         key: "aptos",
         title: "Aptos",
         icon: "logo-aptos.png",
@@ -141,6 +151,12 @@ export const tileGroupsData = [
         title: "Flare",
         icon: "logo-flare.png",
         path: "./connect-blockchain/flare",
+      },
+      {
+        key: "flow",
+        title: "Flow",
+        icon: "logo-flow.png",
+        path: "./connect-blockchain/flow",
       },
       {
         key: "songbird",

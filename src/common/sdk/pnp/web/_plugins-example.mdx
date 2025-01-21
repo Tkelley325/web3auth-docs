@@ -1,19 +1,42 @@
-In this example we're adding the `TorusWalletConnectorPlugin` with a very basic configuration.
+In this example, we're adding the `WalletServicesPlugin` with a very basic configuration.
 
 ```javascript
-import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
+import { WalletServicesPlugin } from "@web3auth/wallet-services-plugin";
 
-const torusPlugin = new TorusWalletConnectorPlugin({
-  torusWalletOpts: {},
+const walletServicesPlugin = new WalletServicesPlugin({
   walletInitOptions: {
-    whiteLabel: {
-      theme: { isDark: true, colors: { primary: "#00a8ff" } },
-      logoDark: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
-      logoLight: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
-    },
-    useWalletConnect: true,
-    enableLogging: true,
+    confirmationStrategy: "modal", // pass this to use the UI modal confirmation while signing
   },
 });
-await web3auth.addPlugin(torusPlugin);
+web3auth.addPlugin(walletServicesPlugin);
+
+// Show the wallet services plugin UI
+await walletServicesPlugin.showWalletUi();
+
+// Show the wallet connect scanner
+await walletServicesPlugin.showWalletConnectScanner();
+
+// Show the checkout for top-up or transaction
+await walletServicesPlugin.showCheckout();
+
+// Sign a message using the `personal_sign` method with a UI confirmation screen
+const signMessageUi = async () => {
+  if (!web3auth.provider) {
+    console.log("provider not initialized yet");
+    return;
+  }
+  const message = "Example `personal_sign` message";
+  const accounts = await web3auth.provider.request<never, string[]>({ method: "eth_accounts" });
+  const from = accounts[0];
+  const signedMessage = await walletServicesPlugin?.proxyProvider?.request<
+    [string, string],
+    string
+  >({
+    method: "personal_sign",
+    params: [message, from],
+  });
+  console.log(signedMessage);
+};
+
+await signMessageUi();
 ```

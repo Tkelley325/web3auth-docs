@@ -1,16 +1,20 @@
 ---
 title: Whitelabel PnP React Native SDK
 sidebar_label: Whitelabel
-displayed_sidebar: sdk
 description: "Web3Auth PnP React Native SDK - Whitelabel | Documentation - Web3Auth"
 ---
 
 import TabItem from "@theme/TabItem";
 import Tabs from "@theme/Tabs";
+import WhiteLabelShowcase from "@site/src/common/sdk/pnp/_whitelabel_showcase.mdx";
+import GrowthPlanNote from "@site/src/common/docs/_growth_plan_note.mdx";
 
 `whiteLabel`
 
-For defining custom UI, branding, and translations for your brand app, you just need to define an optional object called `WhiteLabelData`.
+For defining custom UI, branding, and translations for your brand app, you just need to define an
+optional object called `WhiteLabelData`.
+
+<GrowthPlanNote />
 
 ### Arguments
 
@@ -26,14 +30,18 @@ For defining custom UI, branding, and translations for your brand app, you just 
 
 <TabItem value="table">
 
-| Parameter         | Type               | Mandatory | Description                                       |
-| ----------------- | ------------------ | --------- | ------------------------------------------------- |
-| `name`            | `String`           | No        | Name of your application                          |
-| `logoLight`       | `String`           | No        | Light logo for dark background                    |
-| `logoDark`        | `String`           | No        | Dark logo for light background                    |
-| `defaultLanguage` | `String`           | No        | Default translation language to used              |
-| `dark`            | `Bool`             | No        | If true, enables dark mode. Default is light mode |
-| `theme`           | `[String, String]` | No        | Whitelabel theme                                  |
+| Parameter          | Description                                                                                                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appName?`         | Display name for the app in the UI.                                                                                                                                                |
+| `logoLight?`       | App logo to be used in dark mode. It accepts url in `string` as a value.                                                                                                           |
+| `logoDark?`        | App logo to be used in light mode. It accepts url in `string` as a value.                                                                                                          |
+| `defaultLanguage?` | Language which will be used by Web3Auth, app will use browser language if not specified. Default language is `LANGUAGE_TYPE.en`. Checkout `LANGUAGE_TYPE` for supported languages. |
+| `mode?`            | Theme mode for the login modal. Choose between `THEME_MODE_TYPE.auto`, `THEME_MODE_TYPE.light` or `THEME_MODE_TYPE.dark` background modes. Default value is `ThemeModes.auto`.     |
+| `theme?`           | Used to customize the theme of the login modal. It accepts `Record` as a value.                                                                                                    |
+| `appUrl?`          | Url to be used in the Modal. It accepts url in `string` as a value.                                                                                                                |
+| `useLogoLoader?`   | Use logo loader. If `logoDark` and `logoLight` are null, the default Web3Auth logo will be used for the loader. Default value is false.                                            |
+| `tncLink`          | Terms and conditions link in `Partial<Record<LANGUAGE_TYPE, string>>`.                                                                                                             |
+| `privacyPolicy`    | Privacy policy link in `Partial<Record<LANGUAGE_TYPE, string>>`.                                                                                                                   |
 
 </TabItem>
 
@@ -44,7 +52,11 @@ export type WhiteLabelData = {
   /**
    * App name to display in the UI
    */
-  name?: string;
+  appName?: string;
+  /**
+   * App url
+   */
+  appUrl?: string;
   /**
    * App logo to use in light mode
    */
@@ -54,31 +66,72 @@ export type WhiteLabelData = {
    */
   logoDark?: string;
   /**
-   * Default language to use
+   * language which will be used by web3auth. app will use browser language if not specified. if language is not supported it will use "en"
+   * en: english
+   * de: german
+   * ja: japanese
+   * ko: korean
+   * zh: mandarin
+   * es: spanish
+   * fr: french
+   * pt: portuguese
+   * nl: dutch
    *
    * @defaultValue en
    */
-  defaultLanguage?: string;
+  defaultLanguage?: LANGUAGE_TYPE;
   /**
-   * Whether to enable dark mode
+   theme
+    *
+    * @defaultValue auto
+    */
+  mode?: THEME_MODE_TYPE;
+  /**
+   * Use logo loader
    *
    * @defaultValue false
    */
-  dark?: boolean;
-
+  useLogoLoader?: boolean;
   /**
    * Used to customize theme of the login modal with following options
    * `'primary'` - To customize primary color of modal's content.
    */
   theme?: {
-    [P in string]: string;
+    primary?: string;
+    gray?: string;
+    red?: string;
+    green?: string;
+    success?: string;
+    warning?: string;
+    error?: string;
+    info?: string;
+    white?: string;
   };
+  /**
+   * Language specific link for terms and conditions on torus-website. See (examples/vue-app) to configure
+   * e.g.
+   * tncLink: {
+   *  en: "http://example.com/tnc/en",
+   *  ja: "http://example.com/tnc/ja",
+   * }
+   */
+  tncLink?: Partial<Record<LANGUAGE_TYPE, string>>;
+  /**
+   * Language specific link for privacy policy on torus-website. See (examples/vue-app) to configure
+   * e.g.
+   * privacyPolicy: {
+   *  en: "http://example.com/tnc/en",
+   *  ja: "http://example.com/tnc/ja",
+   * }
+   */
+  privacyPolicy?: Partial<Record<LANGUAGE_TYPE, string>>;
 };
 ```
 
 </TabItem>
-
 </Tabs>
+
+<WhiteLabelShowcase />
 
 ### Example
 
@@ -94,25 +147,26 @@ export type WhiteLabelData = {
 
 ```tsx
 import * as WebBrowser from "expo-web-browser";
-import Web3Auth, { LOGIN_PROVIDER, OPENLOGIN_NETWORK } from "@web3auth/react-native-sdk";
+import * as SecureStore from "expo-secure-store";
+import Web3Auth, { LOGIN_PROVIDER, WEB3AUTH_NETWORK } from "@web3auth/react-native-sdk";
 
 const clientId = "YOUR WEB3AUTH CLIENT ID";
 
-const web3auth = new Web3Auth(WebBrowser, {
+const web3auth = new Web3Auth(WebBrowser, SecureStore, {
   clientId,
-  network: OPENLOGIN_NETWORK.TESTNET, // or other networks
-  // highlight-start
+  network: WEB3AUTH_NETWORK.TESTNET, // or other networks
+  // focus-start
   whiteLabel: {
-    name: "My App",
+    appName: "My App",
     logoLight: "https://web3auth.io/images/logo-light.png",
     logoDark: "https://web3auth.io/images/logo-dark.png",
     defaultLanguage: "en",
-    dark: true,
+    mode: "auto", // or "dark" or "light"
     theme: {
       primary: "#cddc39",
     },
   },
-  // highlight-end
+  // focus-end
 });
 ```
 
@@ -122,25 +176,26 @@ const web3auth = new Web3Auth(WebBrowser, {
 
 ```tsx
 import * as WebBrowser from "@toruslabs/react-native-web-browser";
-import Web3Auth, { LOGIN_PROVIDER, OPENLOGIN_NETWORK } from "@web3auth/react-native-sdk";
+import EncryptedStorage from "react-native-encrypted-storage";
+import Web3Auth, { LOGIN_PROVIDER, WEB3AUTH_NETWORK } from "@web3auth/react-native-sdk";
 
 const clientId = "YOUR WEB3AUTH CLIENT ID";
 
-const web3auth = new Web3Auth(WebBrowser, {
+const web3auth = new Web3Auth(WebBrowser, EncryptedStorage, {
   clientId,
-  network: OPENLOGIN_NETWORK.TESTNET, // or other networks
-  // highlight-start
+  network: WEB3AUTH_NETWORK.TESTNET, // or other networks
+  // focus-start
   whiteLabel: {
-    name: "My App",
+    appName: "My App",
     logoLight: "https://web3auth.io/images/logo-light.png",
     logoDark: "https://web3auth.io/images/logo-dark.png",
     defaultLanguage: "en",
-    dark: true,
+    mode: "auto", // or "dark" or "light"
     theme: {
       primary: "#cddc39",
     },
   },
-  // highlight-end
+  // focus-end
 });
 ```
 
